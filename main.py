@@ -8,23 +8,20 @@ import funcs
 sys.setrecursionlimit(10 ** 7)
 
 code = """
-def func(arr):
-    if len(arr) <= 1:
-        return arr
-    
-    pivot = arr[len(arr) // 2]
-    left = []
-    middle = []
-    right = []
-    for x in arr:
-        if x < pivot:
-            left.append(x)
-        elif x > pivot:
-            right.append(x)
+def func(arr, target):
+    low = 0
+    high = len(arr) - 1
+
+    while low <= high:
+        mid = (low + high) // 2
+        if arr[mid] == target:
+            return mid
+        elif arr[mid] < target:
+            low = mid + 1
         else:
-            middle.append(x)
-    
-    return func(left) + middle + func(right)
+            high = mid - 1
+
+    return -1
 """
 
 modified_code = funcs.modify_code(code)
@@ -36,6 +33,7 @@ exec(modified_code)
 
 x = []
 y = []
+
 for i in range(200, 10200, 200):
     operate_count = 0
     test_time = 100
@@ -44,11 +42,5 @@ for i in range(200, 10200, 200):
         exec("func(ran_list)")
     x.append(i)
     y.append(operate_count / test_time)
-
-# for i in range(1, 101):
-#     operate_count = 0
-#     result = exec('func(i)')
-#     x.append(i)
-#     y.append(operate_count)
 
 detect.detect_trend(np.array(x), np.array(y))
