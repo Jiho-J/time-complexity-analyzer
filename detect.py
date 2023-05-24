@@ -62,7 +62,7 @@ def detect_trend(x, y):
     print("Best Parameters:", best_params)
     print("Best R-squared:", best_r_squared)
 
-    plt.scatter(x, y, label='Data', linewidths=1)
+    plt.scatter(x, y, label='Data', linewidths=0.2)
     plt.plot(x, models[best_model](x, *best_params), color='red', label=best_model)
     plt.xlabel('x')
     plt.ylabel('y')
